@@ -4,11 +4,6 @@ import RegisterInput from "../inputs/registerInput/registerInput";
 import * as Yup from "yup";
 import DateOfBirthSelect from "./DateOfBirthSelect";
 import GenderSelect from "./GenderSelect";
-import DotLoader from "react-spinners/DotLoader";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 export default function RegisterForm() {
   const userInfos = {
     first_name: "",
@@ -32,10 +27,11 @@ export default function RegisterForm() {
     gender,
   } = user;
 
+  const [dateError, setDateError] = useState("");
+  const [genderError, setGenderError] = useState("");
 
-  const dispatch =useDispatch()
-  const navigate = useNavigate()
 
+console.log('dataerror--->',dateError);
 
   const yearTemp = new Date().getFullYear();
   const handleRegisterChange = (e) => {
@@ -51,68 +47,77 @@ export default function RegisterForm() {
   console.log(user);
 
 
-  const registerValidation = Yup.object({
-    first_name: Yup.string()
-      .required("What's your First name ?")
-      .min(2, "Fisrt name must be between 2 and 16 characters.")
-      .max(16, "Fisrt name must be between 2 and 16 characters.")
-      .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
-    last_name: Yup.string()
-      .required("What's your Last name ?")
-      .min(2, "Last name must be between 2 and 16 characters.")
-      .max(16, "Last name must be between 2 and 16 characters.")
-      .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
-    email: Yup.string()
-      .required(
-        "You'll need this when you log in and if you ever need to reset your password."
-      )
-      .email("Enter a valid email address."),
-    password: Yup.string()
-      .required(
-        "Enter a combination of at least six numbers,letters and punctuation marks(such as ! and &)."
-      )
-      .min(6, "Password must be atleast 6 characters.")
-      .max(36, "Password can't be more than 36 characters"),
-  });
-  const [dateError, setDateError] = useState("");
-  const [genderError, setGenderError] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false);
+  
+   const  registerValidation = Yup.object({
+        first_name: Yup.string()
+          .required("What's your First name ?")
+          .min(2, "Fisrt name must be between 2 and 16 characters.")
+          .max(16, "Fisrt name must be between 2 and 16 characters.")
+          .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
+        last_name: Yup.string()
+          .required("What's your Last name ?")
+          .min(2, "Last name must be between 2 and 16 characters.")
+          .max(16, "Last name must be between 2 and 16 characters.")
+          .matches(/^[aA-zZ]+$/, "Numbers and special characters are not allowed."),
+        email: Yup.string()
+          .required(
+            "You'll need this when you log in and if you ever need to reset your password."
+          )
+          .email("Enter a valid email address."),
+        password: Yup.string()
+          .required(
+            "Enter a combination of at least six numbers,letters and punctuation marks(such as ! and &)."
+          )
+          .min(6, "Password must be atleast 6 characters.")
+          .max(36, "Password can't be more than 36 characters"),
+      });
 
-console.log('dataerror--->',dateError);
 
-const registerSubmit = async () => {
-  try {
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/register`,
-      {
-        first_name,
-        last_name,
-        email,
-        password,
-        bYear,
-        bMonth,
-        bDay,
-        gender,
-      }
-    );
-    setError("");
-    setSuccess(data.message);
-    const { message, ...rest } = data;
-    console.log(data)
-    setTimeout(() => {
-      dispatch({ type: "LOGIN", payload: rest });
-      Cookies.set("user", JSON.stringify(rest));
-      navigate("/");
-    }, 2000);
-  } catch (error) {
-    setLoading(false);
-    setSuccess("");
-    setError(error.response.data.message);
-  }
-};
 
+    
+
+
+
+// handleSubmit(e) 
+
+const handleSubmit = () => {
+    console.log('submit-------->');
+  
+    let current_date = new Date();
+    let picked_date = new Date(bYear, bMonth - 1, bDay);
+    let atleast14 = new Date(1970 + 14, 0, 1);
+    let noMoreThan70 = new Date(1970 + 70, 0, 1);
+    console.log(current_date, picked_date, atleast14, noMoreThan70);
+    if (current_date - picked_date < atleast14) {
+      setDateError(
+        "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
+      );
+    } else if (current_date - picked_date > noMoreThan70) {
+      setDateError(
+        "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
+      );
+    } else if (gender === "") {
+      setDateError("");
+      setGenderError(
+        "Please choose a gender. You can change who can see this later."
+      );
+    } else {
+      setDateError("");
+      setGenderError("");
+    }
+  
+  
+}
+
+
+
+
+
+
+
+
+
+  
 
 
 
@@ -125,7 +130,7 @@ const registerSubmit = async () => {
         <span>it's quick and easy</span>
       </div>
       <Formik
-        enableReinitialize
+        // enableReinitialize
         initialValues={{
           first_name,
           last_name,
@@ -137,33 +142,10 @@ const registerSubmit = async () => {
           gender,
         }}
         validationSchema={registerValidation}
-        onSubmit={() => {
-          registerSubmit()
-          let current_date = new Date();
-          let picked_date = new Date(bYear, bMonth - 1, bDay);
-          let atleast14 = new Date(1970 + 14, 0, 1);
-          let noMoreThan70 = new Date(1970 + 70, 0, 1);
-          console.log(current_date, picked_date, atleast14, noMoreThan70);
-          if (current_date - picked_date < atleast14) {
-            setDateError(
-              "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
-            );
-          } else if (current_date - picked_date > noMoreThan70) {
-            setDateError(
-              "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
-            );
-          } else if (gender === "") {
-            setDateError("");
-            setGenderError(
-              "Please choose a gender. You can change who can see this later."
-            );
-          } else {
-            setDateError("");
-            setGenderError("");
-          }
-        }}
+        onSubmit={handleSubmit}
       >
-        {(formik) => (
+                 
+                 {(formik) => (
           <Form className="register_form">
             <div className="reg_line">
               <RegisterInput
@@ -229,13 +211,9 @@ const registerSubmit = async () => {
             <div className="reg_btn_wrapper">
               <button type="submit" className="blue_btn open_signup">Sign Up</button>
             </div>
-
-            <DotLoader color="#1876f2" loading={loading} size={30} />
-              {error && <div className="error_text">{error}</div>}
-              {success && <div className="success_text">{success}</div>}
-
           </Form>
-        )}
+          
+                 )}
       </Formik>
     </div>
   </div>
