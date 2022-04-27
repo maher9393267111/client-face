@@ -5,7 +5,7 @@ import Home from "./pages/home";
 function App() {
   return (
     <div>
-      ddd
+      
       <Routes>
         <Route path="/login" element={<Login />} exact />
         <Route path="/profile" element={<Profile />} exact />
