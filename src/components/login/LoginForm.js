@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import LoginInput from "../../components/inputs/loginInput";
+import LoginInput from "../inputs/LoginInput";
 import { useState } from "react";
 const loginInfos = {
   email: "",
