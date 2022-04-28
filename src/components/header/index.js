@@ -1,6 +1,7 @@
 import "./style.css";
 import { Link } from "react-router-dom";
 import { useEffect,useState,useRef } from "react";
+import UserMenu from "./userMenu";
 import {
     ArrowDown,
     Friends,
@@ -117,6 +118,9 @@ useClickOutside(allmenu, () => {
         </div>
         <div className="circle_icon hover1">
           <ArrowDown />
+          <UserMenu user={user} />
+
+
         </div>
       </div>
 
