@@ -1,6 +1,6 @@
 import "./style.css";
 import { Link } from "react-router-dom";
-import { useEffect,useState } from "react";
+import { useEffect,useState,useRef } from "react";
 import {
     ArrowDown,
     Friends,
@@ -16,9 +16,23 @@ import {
 } from "../../svg";
 import { useSelector } from "react-redux";
 import SearchMenu from "./SearchMenu";
+import AllMenu from "./AllMenu";
+import useClickOutside from "../../helpers/clickOutside";
 export default function Header() {
 
   const [showSearchMenu, setShowSearchMenu] = useState(false);
+
+//shoe all menu
+const [showAllMenu, setShowAllMenu] = useState(false);
+
+const allmenu = useRef(null);
+
+useClickOutside(allmenu, () => {
+  setShowAllMenu(false);
+});
+
+
+
     const { user } = useSelector((user) => ({ ...user }));
 
   const color = "#65676b";
@@ -78,9 +92,22 @@ export default function Header() {
           <img src={user?.picture} alt="" />
           <span>{user?.first_name}</span>
         </Link>
-        <div className="circle_icon hover1">
+        
+{/* // all menu {right menu show hide} */}
+
+<div
+          className="circle_icon hover1"
+          ref={allmenu}
+          onClick={() => {
+            setShowAllMenu((prev) => !prev);
+          }}
+        >
           <Menu />
+          {showAllMenu && <AllMenu />}
         </div>
+
+
+
         <div className="circle_icon hover1">
           <Messenger />
         </div>
