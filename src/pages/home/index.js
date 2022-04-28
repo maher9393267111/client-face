@@ -14,7 +14,7 @@ useEffect(() => {
 
   const handleClickOutside = (event) => {
 
-
+// if the click is outside of the div with class outside, hide the div
     if (helloRef.current && !helloRef.current.contains(event.target)) {
 
       console.log("helloRef.current",helloRef.current);
@@ -40,10 +40,15 @@ useEffect(() => {
     <div>
       <Header />
 
-  {show &&  <div className="outside"  ref={helloRef}>
+  
 
-</div>
-}
     </div>
   );
 }
+
+
+
+
+// {show &&  <div className="outside"  ref={helloRef}>
+
+// </div>
