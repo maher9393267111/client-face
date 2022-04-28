@@ -23,6 +23,9 @@ export default function Header() {
 
   const [showSearchMenu, setShowSearchMenu] = useState(false);
 
+const [showuserMenu, setShowuserMenu] = useState(false);
+  
+
 //shoe all menu
 const [showAllMenu, setShowAllMenu] = useState(false);
 
@@ -31,6 +34,13 @@ const allmenu = useRef(null);
 useClickOutside(allmenu, () => {
   setShowAllMenu(false);
 });
+
+
+// close user menu when click outside
+
+// useClickOutside(allmenu, () => {
+//   setShowuserMenu(false);
+// });
 
 
 
@@ -97,7 +107,7 @@ useClickOutside(allmenu, () => {
 {/* // all menu {right menu show hide} */}
 
 <div
-          className="circle_icon hover1"
+          className={ `circle_icon ${allmenu ? 'active' :" "} hover1`}
           ref={allmenu}
           onClick={() => {
             setShowAllMenu((prev) => !prev);
@@ -116,9 +126,11 @@ useClickOutside(allmenu, () => {
           <Notifications />
           <div className="right_notification">5</div>
         </div>
-        <div className="circle_icon hover1">
+        <div onClick={()=> setShowuserMenu((prev)=> !prev)}   className={ `circle_icon ${allmenu ? 'active' :" "} hover1`}>
           <ArrowDown />
-          <UserMenu user={user} />
+
+
+   {showuserMenu &&    <UserMenu user={user} setShowuserMenu={setShowuserMenu}   />    }  
 
 
         </div>
