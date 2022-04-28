@@ -9,7 +9,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-export default function RegisterForm() {
+export default function RegisterForm({setVisible}) {
   const userInfos = {
     first_name: "",
     last_name: "",
@@ -120,7 +120,7 @@ const registerSubmit = async () => {
     <div className="blur">
     <div className="register">
       <div className="register_header">
-        <i className="exit_icon"></i>
+        <i onClick={()=>setVisible(false)} className="exit_icon"></i>
         <span>Sign Up</span>
         <span>it's quick and easy</span>
       </div>
