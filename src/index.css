@@ -1,10 +1,21 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 body {
+  
+    padding-top: 40px; /* This should be equal to the height of your header */
+
+
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+
 }
 html {
   overflow-y: scroll;
