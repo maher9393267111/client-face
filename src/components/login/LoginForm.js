@@ -54,10 +54,18 @@ const loginSubmit = async () => {
       }
     );
     dispatch({ type: "LOGIN", payload: data });
+    localStorage.setItem("user", JSON.stringify(data));
     Cookies.set("user", JSON.stringify(data));
     
+
+    if (data.verified === true) {
+      navigate("/");
+
+    } else {
+
    navigate(`/activate/${data.token}`);
       
+    }
     //navigate(`/activate/${data.token}`);
   } catch (error) {
     setLoading(false);

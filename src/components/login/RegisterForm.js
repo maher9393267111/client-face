@@ -103,13 +103,14 @@ const registerSubmit = async () => {
     console.log(data)
     setTimeout(() => {
       dispatch({ type: "LOGIN", payload: rest });
+      localStorage.setItem("user", JSON.stringify(rest));
       Cookies.set("user", JSON.stringify(rest));
       
 // navigate to activate account page
-navigate(`/activate/${rest.token}`)
+//navigate(`/activate/${rest.token}`)
 
 
-   //   navigate("/");
+     navigate("/");
     }, 2000);
   } catch (error) {
     setLoading(false);

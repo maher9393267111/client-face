@@ -5,6 +5,10 @@ export function userReducer(state = null, action) {
 case 'VERIFY':
   return {...state, verified: action.payload}   
 
+      
+      case "LOGOUT":
+        return null;
+
 
 
       default:
