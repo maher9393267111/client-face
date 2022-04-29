@@ -73,7 +73,7 @@ const {different} = useSelector((different) => ({ ...different }));
 
 {/* // div */}
 
-<h1 className="  bg-red-300 absolute top 200px w-[200px]">{different.emailRedux.email} hfff</h1>
+<h1 className=" ok bg-red-300 absolute top 200px w-[200px]">{different.emailRedux.email} hfff</h1>
 
 
 
