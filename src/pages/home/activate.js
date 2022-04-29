@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams,useLocation } from "react-router-dom";
 import CreatePost from "../../components/createPost";
 import Header from "../../components/header";
 import LeftHome from "../../components/home/left";
@@ -7,11 +8,68 @@ import RightHome from "../../components/home/right";
 import Stories from "../../components/home/stories";
 import ActivateForm from "./ActivateForm";
 import "./style.css";
+import axios from "axios";
+import Cookies from "js-cookie";
 export default function Activate() {
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
   const { user } = useSelector((user) => ({ ...user }));
-  const [success, setSuccess] = useState("1111111111");
+  const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const { token } = useParams();
+  const location = useLocation();
+
+  useEffect(() => {
+
+// if navigated from login page redirect to home page after activation account
+
+   setTimeout(() => {
+
+    
+
+    if(location.state.fromLogin){
+      
+
+      navigate("/");
+
+    }
+
+  }, 2000);
+
+    activateAccount();
+  }, []);
+  const activateAccount = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/activate`,
+        { token },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      console.log(data,'activate account------>');
+      setSuccess(data.message);
+      Cookies.set("user", JSON.stringify({ ...user, verified: true }));
+      dispatch({
+        type: "VERIFY",
+        payload: true,
+      });
+
+      setTimeout(() => {
+        navigate("/");
+      }, 300000);
+    } catch (error) {
+      setError(error.response.data.message);
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  };
   return (
     <div className="home">
       {success && (
@@ -20,8 +78,8 @@ export default function Activate() {
           header="Account verification succeded."
           text={success}
           loading={loading}
-        /> 
-       )}
+        />
+      )}
       {error && (
         <ActivateForm
           type="error"
@@ -30,13 +88,10 @@ export default function Activate() {
           loading={loading}
         />
       )}
-      
       <Header />
-      
       <LeftHome user={user} />
       <div className="home_middle">
         <Stories />
-        
         <CreatePost user={user} />
       </div>
       <RightHome user={user} />

@@ -5,9 +5,10 @@ import LoginInput from "../inputs/LoginInput";
 import { useState } from "react";
 import DotLoader from "react-spinners/DotLoader";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 const loginInfos = {
   email: "",
   password: "",
@@ -22,6 +23,8 @@ export default function LoginForm({setVisible}) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+const location = useLocation();
 
 
   const [loading  , setLoading] = useState(false);
@@ -52,7 +55,10 @@ const loginSubmit = async () => {
     );
     dispatch({ type: "LOGIN", payload: data });
     Cookies.set("user", JSON.stringify(data));
-    navigate("/");
+    
+   navigate(`/activate/${data.token}`);
+      
+    //navigate(`/activate/${data.token}`);
   } catch (error) {
     setLoading(false);
     setError(error.response.data.message);
@@ -106,6 +112,10 @@ const loginSubmit = async () => {
           <Link to="/forgot" className="forgot_password">
             Forgotten password?
           </Link>
+
+
+
+
           <div className="sign_splitter"></div>
           <button onClick={()=>setVisible(true)} className="blue_btn open_signup">Create Account</button>
         </div>
