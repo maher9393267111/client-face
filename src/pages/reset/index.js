@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import { Form, Formik } from "formik";
 import { useState } from "react";
+
 //import LoginInput from "../../components/inputs/LoginInput/index";
 import SearchAccount from "./SearchAccount";
 import ChangePassword from "./ChangePassword";
@@ -24,13 +25,10 @@ export default function Reset() {
   const { error, setError } = useState("");
   const [loading, setLoading] = useState(false);
   
-  //-----------------------------------------------------
-  console.log('userinfp Here ---->',userInfos);
 
-console.log('email Here ---->',email);
+const {different} = useSelector((different) => ({ ...different }));
 
-  //-----------------------------------------------------
-
+  
 
 
 
@@ -75,7 +73,7 @@ console.log('email Here ---->',email);
 
 {/* // div */}
 
-<h1 className="  bg-red-300 absolute top 200px w-[200px]">{email} hfffff</h1>
+<h1 className="  bg-red-300 absolute top 200px w-[200px]">{different.emailRedux.email} hfff</h1>
 
 
 
