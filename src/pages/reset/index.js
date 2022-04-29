@@ -20,9 +20,9 @@ export default function Reset() {
   const [userInfos, setUserInfos] = useState("");
 
   const [visible, setVisible] = useState(0);
-  const { email, setEmail } = useState("maher email");
-  const { code, setCode } = useState("");
-  const { error, setError } = useState("");
+  const [email, setEmail ] = useState("maher email");
+  const [  code, setCode ] = useState("");
+  const [  error, setError ] = useState("");
   const [loading, setLoading] = useState(false);
   
 
@@ -73,7 +73,7 @@ const {different} = useSelector((different) => ({ ...different }));
 
 {/* // div */}
 
-<h1 className=" ok bg-red-300 absolute top 200px w-[200px]">{different.emailRedux.email} hfff</h1>
+<h1 className=" ok bg-red-300 absolute top 200px w-[200px]">{different?.emailRedux?.email} hfff</h1>
 
 
 
@@ -89,7 +89,14 @@ const {different} = useSelector((different) => ({ ...different }));
             setVisible={setVisible}
           />
         )}
-        {visible === 1 && <SendEmail user={user} />}
+        {visible === 1 && <SendEmail
+         error={error}
+         setError={setError}
+         setLoading={setLoading}
+  
+         setVisible={setVisible}
+        
+        user={user} />}
         {visible === 2 && (
           <CodeVerification
             user={user}

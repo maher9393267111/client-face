@@ -11,14 +11,14 @@ export default function SearchAccount({
   error,
   setError,
   setLoading,
-  setUserInfos,
+ // setUserInfos,
   setVisible,
 }) {
 
   const { different } = useSelector((different) => ({ ...different }));
 
-  const {emailRedux} = different
-  console.log('emailRedux',emailRedux.email);
+  const {emailRedux,setUserInfo} = different
+  console.log('emailRedux',emailRedux?.email);
 
   const [email, setEmail] = useState("");
  
@@ -83,7 +83,17 @@ handleSearch();
         `${process.env.REACT_APP_BACKEND_URL}/findUser`,
         { email }
       );
-      setUserInfos(data);
+
+dispatch({
+  type: "SET_USERINFO",
+
+  payload: {
+
+    userinfo: data,
+  },
+});
+
+    // setUserInfos(data);
       setVisible(1);
       setError("");
       setLoading(false);

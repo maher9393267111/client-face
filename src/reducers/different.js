@@ -10,10 +10,10 @@ const different = (state = {}, action) => {
             ...state,
             emailRedux: action.payload
         };
-        case "SET_CODE":
+        case "SET_USERINFO":
         return {
             ...state,
-            code: action.payload
+            userinfo: action.payload
         };
         case "SET_ERROR":
         return {
