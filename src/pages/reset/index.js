@@ -60,7 +60,8 @@ const {different} = useSelector((different) => ({ ...different }));
                 logout();
               }}
             >
-              Logout   {email}
+              Logout1 .
+                 {email}
             </button>
           </div>
         ) : (
