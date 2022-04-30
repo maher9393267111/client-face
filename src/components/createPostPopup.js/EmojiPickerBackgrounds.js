@@ -74,7 +74,7 @@ const dispatch = useDispatch();
 
     <div className={type2 ? "images_input" : ""}>
       <div>
-        {type2 ? 'type 2 is true' : 'type 2 is false'}
+        {type2 ? 'type 22 is true' : 'type 2 is false'}
       </div>
     <div className={!type2 ? "flex_center" : ""}>
       <textarea
