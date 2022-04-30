@@ -32,7 +32,6 @@ const {different} = useSelector((different) => ({ ...different }));
 
 
 
-
   const logout = () => {
     Cookies.set("user", "");
     // clear  local storage
@@ -103,6 +102,10 @@ const {different} = useSelector((different) => ({ ...different }));
             code={code}
             setCode={setCode}
             error={error}
+            setVisible={setVisible}
+            setError={setError}
+            setLoading={setLoading}
+            loading={loading}
           />
         )}
 

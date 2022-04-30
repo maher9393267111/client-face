@@ -6,8 +6,8 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 export default function SearchAccount({
-  //email,
-  //setEmail,
+  email,
+  setEmail,
   error,
   setError,
   setLoading,
@@ -20,7 +20,6 @@ export default function SearchAccount({
   const {emailRedux,setUserInfo} = different
   console.log('emailRedux',emailRedux?.email);
 
-  const [email, setEmail] = useState("");
  
 
 const dispatch = useDispatch();
@@ -35,7 +34,7 @@ const dispatch = useDispatch();
 
     onSubmit: values =>{
      
-      setEmail(values.email);
+     // setEmail(values.email);
       console.log('email',email);
       console.log('emailRedux Here ---->',different.emailRedux);
 
@@ -49,7 +48,17 @@ dispatch({
 });
 
 
-handleSearch();
+// after 3 seconds  execute handlesearch function
+
+
+setTimeout(() => {
+
+  handleSearch();
+
+
+}, 7000);
+
+
 
    
 
@@ -124,7 +133,9 @@ dispatch({
 <div className="  border-2 border-b-gray-600 p-5">
   
 
-<input type="text" name="email" onChange={formik.handleChange} value={formik.values.email}/>
+<input type="text" name="email" onChange={(e)=>setEmail(e.target.value)} value={email}/>
+
+{/* <input type="text" name="email" onChange={formik.handleChange} value={formik.values.email}/> */}
 
 <button onClick= {formik.handleSubmit} type="submit">Submit</button>
 
