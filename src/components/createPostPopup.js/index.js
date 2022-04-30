@@ -16,6 +16,10 @@ export default function CreatePostPopup({  }) {
   const [cursorPosition, setCursorPosition] = useState();
 
 
+  //change showprev
+  const handleShowPrev = () => {
+    setShowPrev(!showPrev);
+  };
 
 
   // user from redux
@@ -36,7 +40,7 @@ export default function CreatePostPopup({  }) {
         <div className="small_circle">
           <i className="exit_icon"></i>
         </div>
-        <span>Create Post {text1}</span>
+        <span onClick={handleShowPrev} >Create Post {text1}</span>
       </div>
       <div className="box_profile">
         <img src={user && user.picture} alt="" className="box_profile_img" />
@@ -56,7 +60,7 @@ export default function CreatePostPopup({  }) {
         <>
           <EmojiPickerBackgrounds
             text={text}
-          
+          type2={type2}
             setText={setText}
             showPrev={showPrev}
           />
