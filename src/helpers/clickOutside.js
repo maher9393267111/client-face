@@ -6,7 +6,7 @@ export default function useClickOutside(ref, fun) {
       if (!ref.current || ref.current.contains(e.target)) {
         return;
       }
-console.log(ref.current,'ref.current');
+//console.log(ref.current,'ref.current');
 
       fun();
     };

@@ -117,6 +117,9 @@ const {different} = useSelector((different) => ({ ...different }));
             conf_password={conf_password}
             setConf_password={setConf_password}
             setPassword={setPassword}
+            loading={loading}
+            setLoading={setLoading}
+            setError={setError}
           />
         )}
 

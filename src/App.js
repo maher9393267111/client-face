@@ -5,9 +5,11 @@ import Home from "./pages/home";
 import Activate from "./pages/home/activate";
 import Reset from "./pages/reset";
 import Formiku from "./pages/practice/formik";
+import CreatePostPopup from "./components/createPostPopup.js";
 function App() {
   return (
     <div>
+      <CreatePostPopup />
       
       <Routes>
         <Route path="/login" element={<Login />} exact />

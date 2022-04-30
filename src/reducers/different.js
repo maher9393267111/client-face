@@ -1,7 +1,7 @@
 
 // create reducer
 
-const different = (state = {}, action) => {
+const different = (state = {createPostModal:false,text1:'tr'}, action) => {
 
 
     switch (action.type) {
@@ -35,6 +35,38 @@ const different = (state = {}, action) => {
             ...state,
             loading: action.payload
         };
+
+        case "OPEN_CREATE_POST_MODAL":
+
+        return {
+
+            ...state,
+
+            createPostModal: action.payload
+
+        };
+
+        case "CLOSE_CREATE_POST_MODAL":
+
+        return {
+
+            ...state,
+
+            createPostModal: action.payload
+
+        };
+
+        case "SET_TEXT":
+
+        return {
+
+            ...state,
+
+            text1: action.payload
+
+        };
+
+        
         default:
         return state;
     }
